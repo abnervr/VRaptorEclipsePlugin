@@ -11,7 +11,7 @@ public class VRaptor implements IProjectNature {
     /**
      * ID of this project nature
      */
-    public static final String NATURE_ID = "org.abner.vraptor.vraptor";
+    public static final String NATURE_ID = "VRaptorEclipsePlugin.vraptor";
 
     private IProject project;
 

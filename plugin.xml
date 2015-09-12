@@ -3,7 +3,7 @@
 <plugin>
 
    <extension
-         id="vraptorJspBuilder"
+         id="vraptorBuilder"
          name="VRaptor Jsp Project Builder"
          point="org.eclipse.core.resources.builders">
       <builder
@@ -23,20 +23,20 @@
          </run>
       </runtime>
       <builder
-            id="org.abner.vraptor.vraptorJspBuilder">
+            id="VRaptorEclipsePlugin.vraptorBuilder">
       </builder>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <category
             name="VRaptor Project Nature commands"
-            id="org.abner.vraptor.vraptor.category">
+            id="VRaptorEclipsePlugin.vraptor.category">
       </category>
       <command
             name="Add/RemoveVRaptor Project Nature"
             defaultHandler="org.abner.vraptor.builder.AddRemoveVRaptorHandler"
-            categoryId="org.abner.vraptor.vraptor.category"
-            id="org.abner.vraptor.addRemoveVRaptor">
+            categoryId="VRaptorEclipsePlugin.vraptor.category"
+            id="VRaptorEclipsePlugin.addRemoveVRaptor">
       </command>
    </extension>
    <extension
@@ -44,8 +44,8 @@
       <menuContribution
             locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
          <command
-               commandId="org.abner.vraptor.addRemoveVRaptor"
-               label="Disable VRaptor builder"
+               commandId="VRaptorEclipsePlugin.addRemoveVRaptor"
+               label="Disable VRaptor Validation"
                style="push">
             <visibleWhen
                   checkEnabled="false">
@@ -58,7 +58,7 @@
                      <adapt
                            type="org.eclipse.core.resources.IProject">
                         <test
-                              value="org.abner.vraptor.vraptor"
+                              value="VRaptorEclipsePlugin.vraptor"
                               property="org.eclipse.core.resources.projectNature">
                         </test>
                      </adapt>
@@ -67,8 +67,8 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.abner.vraptor.addRemoveVRaptor"
-               label="Enable VRaptor builder"
+               commandId="VRaptorEclipsePlugin.addRemoveVRaptor"
+               label="Enable VRaptor Validation"
                style="push">
             <visibleWhen
                   checkEnabled="false">
@@ -82,7 +82,7 @@
                            type="org.eclipse.core.resources.IProject">
                         <not>
                            <test
-                                 value="org.abner.vraptor.vraptor"
+                                 value="VRaptorEclipsePlugin.vraptor"
                                  property="org.eclipse.core.resources.projectNature">
                            </test>
                         </not>
@@ -94,8 +94,8 @@
       </menuContribution>
    </extension>
    <extension
-         id="xmlProblem"
-         name="XML Problem"
+         id="jspProblem"
+         name="JSP Problem"
          point="org.eclipse.core.resources.markers">
       <super
             type="org.eclipse.core.resources.problemmarker">

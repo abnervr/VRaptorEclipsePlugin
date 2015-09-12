@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Vraptor
-Bundle-SymbolicName: org.abner.vraptor;singleton:=true
+Bundle-SymbolicName: VRaptorEclipsePlugin;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.abner.vraptor.Activator
 Require-Bundle: org.eclipse.ui,

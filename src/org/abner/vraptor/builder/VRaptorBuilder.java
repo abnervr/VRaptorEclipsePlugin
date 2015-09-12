@@ -78,9 +78,9 @@ public class VRaptorBuilder extends IncrementalProjectBuilder {
         }
     }
 
-    public static final String BUILDER_ID = "org.abner.vraptor.vraptorJspBuilder";
+    public static final String BUILDER_ID = "VRaptorEclipsePlugin.vraptorBuilder";
 
-    private static final String MARKER_TYPE = "org.abner.vraptor.xmlProblem";
+    private static final String MARKER_TYPE = "VRaptorEclipsePlugin.jspProblem";
 
     private void addMarker(IFile file, String message, Location location, int severity) {
         try {
