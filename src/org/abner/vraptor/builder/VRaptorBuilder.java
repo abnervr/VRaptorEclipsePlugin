@@ -88,9 +88,10 @@ public class VRaptorBuilder extends IncrementalProjectBuilder {
             marker.setAttribute(IMarker.MESSAGE, message);
             marker.setAttribute(IMarker.SEVERITY, severity);
             marker.setAttribute(IMarker.LINE_NUMBER, location.getLineNumber());
-            /* if (location.getEndColNumber() != -1) { marker.setAttribute(IMarker.CHAR_START,
-             * location.getStartColNumber()); marker.setAttribute(IMarker.CHAR_END,
-             * location.getEndColNumber()); } */
+            if (location.getEndColNumber() != -1) {
+                marker.setAttribute(IMarker.CHAR_START, location.getStartColNumber());
+                marker.setAttribute(IMarker.CHAR_END, location.getEndColNumber());
+            }
         } catch (CoreException e) {}
     }
 
