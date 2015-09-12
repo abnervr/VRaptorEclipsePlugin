@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="vraptorJspBuilder"
+         name="VRaptor Jsp Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="org.abner.vraptor.builder.VRaptorBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="vraptor"
+         name="VRaptor Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.abner.vraptor.builder.VRaptor">
+         </run>
+      </runtime>
+      <builder
+            id="org.abner.vraptor.vraptorJspBuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="VRaptor Project Nature commands"
+            id="org.abner.vraptor.vraptor.category">
+      </category>
+      <command
+            name="Add/RemoveVRaptor Project Nature"
+            defaultHandler="org.abner.vraptor.builder.AddRemoveVRaptorHandler"
+            categoryId="org.abner.vraptor.vraptor.category"
+            id="org.abner.vraptor.addRemoveVRaptor">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
+         <command
+               commandId="org.abner.vraptor.addRemoveVRaptor"
+               label="Disable VRaptor builder"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <test
+                              value="org.abner.vraptor.vraptor"
+                              property="org.eclipse.core.resources.projectNature">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.abner.vraptor.addRemoveVRaptor"
+               label="Enable VRaptor builder"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <not>
+                           <test
+                                 value="org.abner.vraptor.vraptor"
+                                 property="org.eclipse.core.resources.projectNature">
+                           </test>
+                        </not>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         id="xmlProblem"
+         name="XML Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+
+</plugin>
