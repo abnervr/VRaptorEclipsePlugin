@@ -1,7 +1,10 @@
 package org.abner.vraptor.builder;
 
 import java.util.Iterator;
-import org.eclipse.core.commands.*;
+
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
@@ -12,8 +15,9 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 public class AddRemoveVRaptorHandler extends AbstractHandler {
 
-    private ISelection selection;
+    // private ISelection selection;
 
+    @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
         ISelection selection = HandlerUtil.getCurrentSelection(event);
         //
@@ -24,7 +28,7 @@ public class AddRemoveVRaptorHandler extends AbstractHandler {
                 if (element instanceof IProject) {
                     project = (IProject) element;
                 } else if (element instanceof IAdaptable) {
-                    project = (IProject) ((IAdaptable) element).getAdapter(IProject.class);
+                    project = ((IAdaptable) element).getAdapter(IProject.class);
                 }
                 if (project != null) {
                     try {
