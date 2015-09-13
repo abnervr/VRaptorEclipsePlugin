@@ -7,6 +7,7 @@ import org.abner.vraptor.controller.Controller;
 import org.abner.vraptor.jsp.Jsp;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IMethod;
 
 public class ControllerParser {
 
@@ -42,6 +43,12 @@ public class ControllerParser {
             controllers.add(controller);
         }
         return controller;
+    }
+
+    public static List<IMethod> findMethodReferences(IMethod method) throws CoreException {
+        List<IMethod> references = new ArrayList<>();
+        references.addAll(SearchHelper.searchMethodReference(method));
+        return references;
     }
 
 }

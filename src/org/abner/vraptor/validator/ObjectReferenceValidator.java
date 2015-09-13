@@ -8,6 +8,7 @@ import org.abner.vraptor.controller.IncludedObject;
 import org.abner.vraptor.jsp.Jsp;
 import org.abner.vraptor.jsp.expression.ExpressionReference;
 import org.abner.vraptor.jsp.expression.ObjectReferenceExpression;
+import org.abner.vraptor.parser.ControllerParser;
 import org.eclipse.core.runtime.CoreException;
 
 public class ObjectReferenceValidator implements ExpressionValidator<ObjectReferenceExpression> {
@@ -22,12 +23,15 @@ public class ObjectReferenceValidator implements ExpressionValidator<ObjectRefer
 
     @Override
     public void validate(ObjectReferenceExpression expression, Jsp jsp) throws JspParseException, CoreException {
-        /*controller = ControllerParser.findControllerByJsp(jsp);
-        this.expression = expression;
+        controller = ControllerParser.findControllerByJsp(jsp);
+
         if (controller != null) {
             references = controller.getIncludedObjectsFor(jsp);
-            validateExpressions();
-        }*/
+            if (!references.isEmpty()) {
+                this.expression = expression;
+                validateExpressions();
+            }
+        }
     }
 
     private void validateExpressions() throws JspParseException {

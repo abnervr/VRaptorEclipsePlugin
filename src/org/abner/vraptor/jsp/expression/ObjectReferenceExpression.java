@@ -16,6 +16,10 @@ public class ObjectReferenceExpression extends Expression {
     public ObjectReferenceExpression(String value, Location location) {
         super(value, location);
         for (String part : value.split("\\s")) {
+            if (part.contains("[") && part.contains("]")) {
+                // TODO mapOrArrayObject[key]
+                continue;
+            }
             ExpressionReference expressionReference = new ExpressionReference(part);
             if (expressionReference.getSegmentCount() > 0) {
                 references.add(expressionReference);

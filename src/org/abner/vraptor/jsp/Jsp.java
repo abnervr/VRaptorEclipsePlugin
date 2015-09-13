@@ -50,6 +50,21 @@ public class Jsp {
         return fullPath.segment(fullPath.segmentCount() - 2);
     }
 
+    public String getPath() {
+        IPath fullPath = file.getFullPath();
+        String path = null;
+        int i = 3;
+        while (!fullPath.segment(fullPath.segmentCount() - i).equals("jsp")) {
+            if (path == null) {
+                path = fullPath.segment(fullPath.segmentCount() - i);
+            } else {
+                path = fullPath.segment(fullPath.segmentCount() - i) + "/" + path;
+            }
+            i++;
+        }
+        return path;
+    }
+
     public String getName() {
         String name = file.getName();
         int extensionIndexOf = name.lastIndexOf("." + file.getFileExtension());
