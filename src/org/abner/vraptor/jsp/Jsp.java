@@ -6,6 +6,7 @@ import java.util.List;
 import org.abner.vraptor.jsp.expression.Expression;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
@@ -44,4 +45,18 @@ public class Jsp {
         return expressions;
     }
 
+    public String getCurrentDirectory() {
+        IPath fullPath = file.getFullPath();
+        return fullPath.segment(fullPath.segmentCount() - 2);
+    }
+
+    public String getName() {
+        String name = file.getName();
+        int extensionIndexOf = name.lastIndexOf("." + file.getFileExtension());
+        if (extensionIndexOf != -1) {
+            return name.substring(0, extensionIndexOf);
+        } else {
+            return name;
+        }
+    }
 }

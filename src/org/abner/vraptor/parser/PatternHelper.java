@@ -1,5 +1,6 @@
 package org.abner.vraptor.parser;
 
+import org.abner.vraptor.jsp.Jsp;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.SearchPattern;
 
@@ -10,8 +11,9 @@ public class PatternHelper {
                         IJavaSearchConstants.DECLARATIONS, SearchPattern.R_EXACT_MATCH);
     }
 
-    public static SearchPattern createByAnnotation(String path) {
-        return SearchPattern.createPattern("@Resource", IJavaSearchConstants.ANNOTATION_TYPE,
-                        IJavaSearchConstants.REFERENCES, SearchPattern.R_EXACT_MATCH);
+    public static SearchPattern createByJsp(Jsp jsp) {
+        return SearchPattern.createPattern(jsp.getCurrentDirectory(), IJavaSearchConstants.CLASS,
+                        IJavaSearchConstants.DECLARATIONS, SearchPattern.R_PREFIX_MATCH);
     }
+
 }

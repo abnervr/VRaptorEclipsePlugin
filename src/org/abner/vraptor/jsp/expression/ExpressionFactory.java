@@ -8,10 +8,11 @@ public class ExpressionFactory {
         if (expression.contains("linkTo[")) {
             return new LinkToExpression(expression, location);
         } else if (expression.contains(".")) {
-            // TODO
-            return null;
-        } else {
-            return null;
+            ObjectReferenceExpression objectExpression = new ObjectReferenceExpression(expression, location);
+            if (!objectExpression.getReferences().isEmpty()) {
+                return objectExpression;
+            }
         }
+        return null;
     }
 }

@@ -29,8 +29,19 @@ public class ControllerParser {
         return controller;
     }
 
-    public static Controller findIncludeController(Jsp jsp) {
-        return null;
+    public static Controller findControllerByJsp(Jsp jsp) throws CoreException {
+        for (Controller controller : controllers) {
+            String name = controller.getName();
+            String currentDirectory = jsp.getCurrentDirectory();
+            if (name.toLowerCase().startsWith(currentDirectory.toLowerCase())) {
+                return controller;
+            }
+        }
+        Controller controller = SearchHelper.searchByJsp(jsp);
+        if (controller != null) {
+            controllers.add(controller);
+        }
+        return controller;
     }
 
 }

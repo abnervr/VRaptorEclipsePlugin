@@ -58,7 +58,7 @@ public class JspParser {
             if (indexOf != -1) {
                 fromIndex = indexOf + 1;
                 if (line.indexOf('}', fromIndex) != -1) {
-                    String expressionValue = line.substring(fromIndex + 2, line.indexOf('}', fromIndex));
+                    String expressionValue = line.substring(fromIndex + 1, line.indexOf('}', fromIndex));
                     Location location = createLocation(line, fromIndex);
 
                     Expression expression = ExpressionFactory.create(expressionValue, location);
