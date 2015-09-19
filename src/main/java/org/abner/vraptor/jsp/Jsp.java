@@ -3,12 +3,13 @@ package org.abner.vraptor.jsp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.abner.vraptor.jsp.expression.Expression;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+
+import org.abner.vraptor.jsp.expression.Expression;
 
 public class Jsp {
 

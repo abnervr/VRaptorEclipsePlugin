@@ -3,11 +3,12 @@ package org.abner.vraptor.jsp.expression;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+
 import org.abner.vraptor.JspParseException;
 import org.abner.vraptor.jsp.Jsp;
 import org.abner.vraptor.jsp.Location;
 import org.abner.vraptor.validator.ObjectReferenceValidator;
-import org.eclipse.core.runtime.CoreException;
 
 public class ObjectReferenceExpression extends Expression {
 

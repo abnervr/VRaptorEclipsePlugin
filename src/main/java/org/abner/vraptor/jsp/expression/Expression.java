@@ -1,9 +1,10 @@
 package org.abner.vraptor.jsp.expression;
 
+import org.eclipse.core.runtime.CoreException;
+
 import org.abner.vraptor.JspParseException;
 import org.abner.vraptor.jsp.Jsp;
 import org.abner.vraptor.jsp.Location;
-import org.eclipse.core.runtime.CoreException;
 
 public abstract class Expression {
 

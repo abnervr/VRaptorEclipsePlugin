@@ -1,8 +1,9 @@
 package org.abner.vraptor.parser;
 
-import org.abner.vraptor.jsp.Jsp;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.SearchPattern;
+
+import org.abner.vraptor.jsp.Jsp;
 
 public class PatternHelper {
 

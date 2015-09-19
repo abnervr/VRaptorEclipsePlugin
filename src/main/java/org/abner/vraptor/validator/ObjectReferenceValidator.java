@@ -2,6 +2,8 @@ package org.abner.vraptor.validator;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+
 import org.abner.vraptor.JspParseException;
 import org.abner.vraptor.controller.Controller;
 import org.abner.vraptor.controller.IncludedObject;
@@ -9,7 +11,6 @@ import org.abner.vraptor.jsp.Jsp;
 import org.abner.vraptor.jsp.expression.ExpressionReference;
 import org.abner.vraptor.jsp.expression.ObjectReferenceExpression;
 import org.abner.vraptor.parser.ControllerParser;
-import org.eclipse.core.runtime.CoreException;
 
 public class ObjectReferenceValidator implements ExpressionValidator<ObjectReferenceExpression> {
 

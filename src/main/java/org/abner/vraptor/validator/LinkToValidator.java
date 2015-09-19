@@ -1,11 +1,12 @@
 package org.abner.vraptor.validator;
 
+import org.eclipse.core.runtime.CoreException;
+
 import org.abner.vraptor.JspParseException;
 import org.abner.vraptor.controller.Controller;
 import org.abner.vraptor.jsp.Jsp;
 import org.abner.vraptor.jsp.expression.LinkToExpression;
 import org.abner.vraptor.parser.ControllerParser;
-import org.eclipse.core.runtime.CoreException;
 
 public class LinkToValidator implements ExpressionValidator<LinkToExpression> {
 

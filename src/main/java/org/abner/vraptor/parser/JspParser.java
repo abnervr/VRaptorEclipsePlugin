@@ -3,14 +3,15 @@ package org.abner.vraptor.parser;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
+
 import org.abner.vraptor.JspParseException;
 import org.abner.vraptor.builder.ErrorHandler;
 import org.abner.vraptor.jsp.Jsp;
 import org.abner.vraptor.jsp.Location;
 import org.abner.vraptor.jsp.expression.Expression;
 import org.abner.vraptor.jsp.expression.ExpressionFactory;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 
 public class JspParser {
 

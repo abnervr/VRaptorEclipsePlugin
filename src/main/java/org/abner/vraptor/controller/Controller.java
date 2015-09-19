@@ -5,14 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.abner.vraptor.jsp.Jsp;
-import org.abner.vraptor.parser.ControllerParser;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+
+import org.abner.vraptor.jsp.Jsp;
+import org.abner.vraptor.parser.ControllerParser;
 
 public class Controller {
 

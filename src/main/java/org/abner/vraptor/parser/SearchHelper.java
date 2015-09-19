@@ -3,8 +3,6 @@ package org.abner.vraptor.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.abner.vraptor.controller.Controller;
-import org.abner.vraptor.jsp.Jsp;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -18,6 +16,9 @@ import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchParticipant;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
+
+import org.abner.vraptor.controller.Controller;
+import org.abner.vraptor.jsp.Jsp;
 
 public class SearchHelper {
 
