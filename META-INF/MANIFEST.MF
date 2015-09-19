@@ -7,6 +7,7 @@ Bundle-Activator: main.java.org.abner.vraptor.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.jdt.core;bundle-version="3.11.0"
+ org.eclipse.jdt.core;bundle-version="3.11.0",
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

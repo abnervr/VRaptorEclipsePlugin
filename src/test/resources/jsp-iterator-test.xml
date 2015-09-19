@@ -1,0 +1,45 @@
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:if test="${not empty errors}">
+	<c:forEach items="${errors}" var="error">
+		<div style="padding: 8px;" class="alert alert-error alert-danger">
+			<button type="button" class="close" data-dismiss="alert" style="margin-top:2px!important;"><i class="fa fa-times"></i></button>
+			<%-- Erros que necessitam de internacionalização. --%>
+			<c:if test="${error.category ne 'validations' && error.category ne 'upload'}">
+				<fmt:message key="${error.message}"/>
+			</c:if>
+			
+			<%-- Erros que não necessitam de internacionalização. --%>
+			<c:if test="${error.category eq 'validations' || error.category eq 'upload'}">
+				${error.message}
+			</c:if>
+		</div>
+	</c:forEach>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('html, body').animate({ scrollTop: 0 }, 'slow');
+		});
+	</script>
+</c:if>
+<c:if test="${not empty success}">
+	<div  style="padding: 8px;" class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert" style="margin-top:2px!important;"><i class="fa fa-times"></i></button>
+		
+		<%-- Mensagens que necessitam de internacionalização. --%>
+		<c:if test="${success.category ne 'validations'}">
+			<fmt:message key="${success.message}"/>
+		</c:if>
+		
+		<%-- Mensagens que não necessitam de internacionalização. --%>
+		<c:if test="${success.category eq 'validations'}">
+			${success.message}
+		</c:if>
+		</div>
+	
+	<script language="javascript">
+		$(document).ready(function () {
+			$('html, body').animate({ scrollTop: 0 }, 'slow');
+		});
+	</script>
+</c:if>
