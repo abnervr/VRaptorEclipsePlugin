@@ -1,4 +1,4 @@
-package org.abner.vraptor.parser.jsp;
+package org.abner.vraptor.jsp.dom;
 
 import java.util.ArrayList;
 import java.util.List;

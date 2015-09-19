@@ -1,7 +1,8 @@
-package org.abner.vraptor.parser.jsp.builder;
+package org.abner.vraptor.jsp.dom.builder;
 
 import java.io.InputStream;
 
+import org.abner.vraptor.jsp.dom.builder.JspIterator;
 import org.junit.Assert;
 import org.junit.Test;
 

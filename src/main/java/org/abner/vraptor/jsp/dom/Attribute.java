@@ -1,4 +1,4 @@
-package org.abner.vraptor.parser.jsp;
+package org.abner.vraptor.jsp.dom;
 
 public class Attribute {
 

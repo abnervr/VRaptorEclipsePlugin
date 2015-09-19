@@ -1,10 +1,10 @@
-package org.abner.vraptor.parser.jsp;
+package org.abner.vraptor.jsp.dom;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.abner.vraptor.jsp.dom.builder.ExpressionBuilder;
 import org.abner.vraptor.jsp.expression.Expression;
-import org.abner.vraptor.parser.jsp.builder.ExpressionBuilder;
 
 public class TextElement implements IElement {
 

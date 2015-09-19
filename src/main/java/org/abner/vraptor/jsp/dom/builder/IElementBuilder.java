@@ -1,12 +1,12 @@
-package org.abner.vraptor.parser.jsp.builder;
+package org.abner.vraptor.jsp.dom.builder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.abner.vraptor.InvalidJspException;
-import org.abner.vraptor.parser.jsp.Element;
-import org.abner.vraptor.parser.jsp.IElement;
-import org.abner.vraptor.parser.jsp.TextElement;
+import org.abner.vraptor.jsp.dom.Element;
+import org.abner.vraptor.jsp.dom.IElement;
+import org.abner.vraptor.jsp.dom.TextElement;
 
 public class IElementBuilder {
 

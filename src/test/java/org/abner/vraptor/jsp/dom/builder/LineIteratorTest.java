@@ -1,5 +1,6 @@
-package org.abner.vraptor.parser.jsp.builder;
+package org.abner.vraptor.jsp.dom.builder;
 
+import org.abner.vraptor.jsp.dom.builder.LineIterator;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
-package org.abner.vraptor.parser.jsp.builder;
+package org.abner.vraptor.jsp.dom.builder;
 
-import org.abner.vraptor.parser.jsp.Document;
-import org.abner.vraptor.parser.jsp.IElement;
+import org.abner.vraptor.jsp.dom.Document;
+import org.abner.vraptor.jsp.dom.IElement;
 
 public class DocumentBuilder {
 

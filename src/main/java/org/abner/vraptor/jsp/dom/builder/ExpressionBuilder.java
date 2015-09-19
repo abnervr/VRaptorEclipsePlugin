@@ -1,13 +1,13 @@
-package org.abner.vraptor.parser.jsp.builder;
+package org.abner.vraptor.jsp.dom.builder;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.abner.vraptor.jsp.Location;
+import org.abner.vraptor.jsp.dom.TextValue;
 import org.abner.vraptor.jsp.expression.Expression;
 import org.abner.vraptor.jsp.expression.ExpressionFactory;
-import org.abner.vraptor.parser.jsp.TextValue;
 
 public class ExpressionBuilder {
 

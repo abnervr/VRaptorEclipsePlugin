@@ -1,4 +1,4 @@
-package org.abner.vraptor.parser.jsp.builder;
+package org.abner.vraptor.jsp.dom.builder;
 
 public class LineIterator {
 
