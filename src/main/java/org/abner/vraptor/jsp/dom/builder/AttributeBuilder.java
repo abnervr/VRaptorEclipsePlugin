@@ -15,6 +15,7 @@ public class AttributeBuilder {
 
     private String rawValue;
     private List<TextValue> values = new ArrayList<>();
+    private char delimiter;
 
     public AttributeBuilder(String rawValue) {
         this.rawValue = rawValue;
@@ -25,8 +26,8 @@ public class AttributeBuilder {
 
         int indexOf = rawValue.indexOf('=');
         if (indexOf != -1 && indexOf + 1 < rawValue.length()) {
-            char delimiter = rawValue.charAt(indexOf + 1);
-            findAttributeEnd(iterator, delimiter, indexOf + 2);
+            delimiter = rawValue.charAt(indexOf + 1);
+            findAttributeEnd(iterator, indexOf + 2);
             String name = rawValue.substring(0, indexOf);
             return new Attribute(rawValue, name, parseValue());
         }
@@ -38,11 +39,17 @@ public class AttributeBuilder {
         if (!expressions.isEmpty()) {
             return expressions;
         } else {
-            return null;
+            int start = rawValue.indexOf(delimiter) + 1;
+            if (start < rawValue.length() && rawValue.indexOf(delimiter, start) >= 0) {
+                return rawValue.substring(start, rawValue.indexOf(delimiter, start));
+            } else {
+                return null;
+            }
         }
+
     }
 
-    private List<TextValue> findAttributeEnd(JspIterator iterator, char delimiter, int start) {
+    private List<TextValue> findAttributeEnd(JspIterator iterator, int start) {
         int attributeEnd = rawValue.indexOf(delimiter, start);
         while (attributeEnd == -1 && iterator.hasNext()) {
             values.add(new TextValue(iterator.next(), iterator.getColNumber()));
