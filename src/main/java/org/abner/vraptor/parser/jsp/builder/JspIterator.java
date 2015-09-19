@@ -7,12 +7,18 @@ public class JspIterator {
 
     private static final int LINE_FEED_SIZE = 1;
 
+    public static final JspIterator EMPTY_ITERATOR = new JspIterator();
+
     private Scanner scanner;
     private int colNumber = 0;
     private LineIterator lineIterator;
 
     public JspIterator(InputStream is) {
         scanner = new Scanner(is);
+    }
+
+    private JspIterator() {
+        scanner = new Scanner("");
     }
 
     public boolean hasNext() {

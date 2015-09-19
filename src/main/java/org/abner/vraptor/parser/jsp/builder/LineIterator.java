@@ -10,7 +10,10 @@ public class LineIterator {
     public LineIterator(String line) {
         this.line = line;
         if (!line.trim().isEmpty()) {
-            this.parts = line.trim().split("\\s+");
+            line = line.replaceAll("(\\<[a-zA-z])", " $1");
+            line = line.replaceAll("(\\</[a-zA-z:]+\\>)", " $1 ");
+            line = line.trim();
+            this.parts = line.split("\\s+");
         } else {
             this.parts = new String[0];
         }
