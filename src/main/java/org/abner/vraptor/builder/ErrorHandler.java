@@ -1,12 +1,12 @@
 package org.abner.vraptor.builder;
 
-import org.abner.vraptor.JspParseException;
+import org.abner.vraptor.ExpressionLanguageException;
 
 public interface ErrorHandler {
 
-    void error(JspParseException exception);
+    void error(ExpressionLanguageException exception);
 
-    void fatalError(JspParseException exception);
+    void fatalError(ExpressionLanguageException exception);
 
-    void warning(JspParseException exception);
+    void warning(ExpressionLanguageException exception);
 }

@@ -2,7 +2,7 @@ package org.abner.vraptor.builder;
 
 import java.util.Map;
 
-import org.abner.vraptor.JspParseException;
+import org.abner.vraptor.ExpressionLanguageException;
 import org.abner.vraptor.jsp.Location;
 import org.abner.vraptor.parser.JspParser;
 import org.eclipse.core.resources.IFile;
@@ -58,22 +58,22 @@ public class VRaptorBuilder extends IncrementalProjectBuilder {
             this.file = file;
         }
 
-        private void addMarker(JspParseException e, int severity) {
+        private void addMarker(ExpressionLanguageException e, int severity) {
             VRaptorBuilder.this.addMarker(file, e.getMessage(), e.getLocation(), severity);
         }
 
         @Override
-        public void error(JspParseException exception) {
+        public void error(ExpressionLanguageException exception) {
             addMarker(exception, IMarker.SEVERITY_ERROR);
         }
 
         @Override
-        public void fatalError(JspParseException exception) {
+        public void fatalError(ExpressionLanguageException exception) {
             addMarker(exception, IMarker.SEVERITY_ERROR);
         }
 
         @Override
-        public void warning(JspParseException exception) {
+        public void warning(ExpressionLanguageException exception) {
             addMarker(exception, IMarker.SEVERITY_WARNING);
         }
     }

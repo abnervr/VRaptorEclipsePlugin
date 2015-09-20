@@ -2,7 +2,7 @@ package org.abner.vraptor.validator;
 
 import java.util.List;
 
-import org.abner.vraptor.JspParseException;
+import org.abner.vraptor.ExpressionLanguageException;
 import org.abner.vraptor.builder.ErrorHandler;
 import org.abner.vraptor.jsp.ContextObject;
 import org.abner.vraptor.jsp.Jsp;
@@ -76,8 +76,12 @@ public class JspValidator {
         for (Expression e : expressions) {
             try {
                 e.validate(jsp);
-            } catch (JspParseException parseException) {
-                handler.error(parseException);
+            } catch (ExpressionLanguageException exception) {
+                if (exception.isError()) {
+                    handler.error(exception);
+                } else {
+                    handler.warning(exception);
+                }
             }
         }
     }

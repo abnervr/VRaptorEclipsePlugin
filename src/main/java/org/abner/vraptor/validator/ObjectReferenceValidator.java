@@ -2,7 +2,7 @@ package org.abner.vraptor.validator;
 
 import java.util.List;
 
-import org.abner.vraptor.JspParseException;
+import org.abner.vraptor.ExpressionLanguageException;
 import org.abner.vraptor.controller.Controller;
 import org.abner.vraptor.controller.IncludedObject;
 import org.abner.vraptor.jsp.ContextObject;
@@ -24,7 +24,7 @@ public class ObjectReferenceValidator implements ExpressionValidator<ObjectRefer
     }
 
     @Override
-    public void validate(ObjectReferenceExpression expression, Jsp jsp) throws JspParseException, CoreException {
+    public void validate(ObjectReferenceExpression expression, Jsp jsp) throws ExpressionLanguageException, CoreException {
         this.jsp = jsp;
         controller = ControllerParser.findControllerByJsp(jsp);
 
@@ -37,12 +37,12 @@ public class ObjectReferenceValidator implements ExpressionValidator<ObjectRefer
         }
     }
 
-    private void validateExpressions() throws JspParseException {
+    private void validateExpressions() throws ExpressionLanguageException {
         for (ExpressionReference e : expression.getReferences()) {
             String name = e.getSegment(0);
             Object object = findByName(name);
             if (object == null) {
-                throw new JspParseException(name + " not included in " + controller.getName(),
+                throw new ExpressionLanguageException(name + " not included in " + controller.getName(),
                                 expression.getLocation());
             } else {
                 // Validate object tree

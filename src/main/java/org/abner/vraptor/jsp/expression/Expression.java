@@ -1,6 +1,6 @@
 package org.abner.vraptor.jsp.expression;
 
-import org.abner.vraptor.JspParseException;
+import org.abner.vraptor.ExpressionLanguageException;
 import org.abner.vraptor.jsp.Jsp;
 import org.abner.vraptor.jsp.Location;
 import org.eclipse.core.runtime.CoreException;
@@ -62,6 +62,6 @@ public abstract class Expression {
         return true;
     }
 
-    public abstract void validate(Jsp jsp) throws JspParseException, CoreException;
+    public abstract void validate(Jsp jsp) throws ExpressionLanguageException, CoreException;
 
 }
