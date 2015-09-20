@@ -1,7 +1,11 @@
 package org.abner.vraptor.jsp.dom.builder;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import org.abner.vraptor.jsp.dom.Element;
 
 public class JspIterator {
 
@@ -9,25 +13,27 @@ public class JspIterator {
 
     public static final JspIterator EMPTY_ITERATOR = new JspIterator();
 
-    private Scanner scanner;
+    private List<String> lines = new ArrayList<>();
+    private int lineIndex = 0;
     private int colNumber = 0;
     private LineIterator lineIterator;
-    private int lineNumber = 1;
 
     public JspIterator(InputStream is) {
-        scanner = new Scanner(is);
+        try (Scanner scanner = new Scanner(is)) {
+            while (scanner.hasNext()) {
+                lines.add(scanner.nextLine());
+            }
+        }
     }
 
-    private JspIterator() {
-        scanner = new Scanner("");
-    }
+    private JspIterator() {}
 
     public boolean hasNext() {
         if (lineHasNext()) {
             return true;
         }
-        while (scanner.hasNext()) {
-            lineIterator = new LineIterator(scanner.nextLine());
+        while (lineIndex < lines.size()) {
+            lineIterator = new LineIterator(lines.get(lineIndex));
             if (lineHasNext()) {
                 return true;
             }
@@ -41,15 +47,11 @@ public class JspIterator {
                 return true;
             } else {
                 colNumber += lineIterator.getColIndex() + LINE_FEED_SIZE;
-                lineNumber++;
+                lineIndex++;
                 lineIterator = null;
             }
         }
         return false;
-    }
-
-    public void close() {
-        scanner.close();
     }
 
     public String next() {
@@ -65,6 +67,23 @@ public class JspIterator {
     }
 
     public int getLineNumber() {
-        return lineNumber;
+        return lineIndex + 1;
+    }
+
+    public boolean findElementEnd(Element element) {
+        int index = lineIndex;
+        // TODO check if parent element ends before the current element
+        while (index < lines.size()) {
+            String line = lines.get(index);
+            if (index == lineIndex) {
+                line = line.substring(lineIterator.getColIndex());
+            }
+            if (line.indexOf("</" + element.getName()) != -1) {
+                return true;
+            }
+            index++;
+        }
+        System.out.printf("Element end not found %s [%d]\n", element.getName(), getColNumber());
+        return false;
     }
 }

@@ -3,7 +3,6 @@ package org.abner.vraptor.jsp.dom.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.abner.vraptor.InvalidJspException;
 import org.abner.vraptor.jsp.dom.Element;
 import org.abner.vraptor.jsp.dom.IElement;
 import org.abner.vraptor.jsp.dom.TextElement;
@@ -14,23 +13,17 @@ public class IElementBuilder {
         return buildElements(null, iterator);
     }
 
-    public static List<IElement> buildElements(String elementEnd, JspIterator iterator) {
+    public static List<IElement> buildElements(Element element, JspIterator iterator) {
         List<IElement> elements = new ArrayList<>();
         while (iterator.hasNext()) {
             String value = iterator.next();
 
             if (isElementStart(value)) {
                 elements.add(buildElement(iterator, value));
-            } else if (elementEnd != null && value.startsWith(elementEnd)) {
-                elementEnd = null;
-                break;
             } else {
                 TextElement textElement = getLastTextElement(elements);
                 textElement.append(value, iterator.getColNumber(), iterator.getLineNumber());
             }
-        }
-        if (elementEnd != null) {
-            throw new InvalidJspException("End of element: " + elementEnd + "[" + iterator.getColNumber() + "] not found");
         }
         return elements;
     }
@@ -51,9 +44,8 @@ public class IElementBuilder {
         return textElement;
     }
 
-
     static boolean isElementStart(String value) {
-        return value.matches("<[a-zA-Z].*");
+        return value.matches("<[a-zA-Z]+");
     }
 
 }

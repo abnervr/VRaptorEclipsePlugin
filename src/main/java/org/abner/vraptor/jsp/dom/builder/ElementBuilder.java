@@ -16,15 +16,14 @@ public class ElementBuilder {
 
     Element build(String value) {
         createElement(value);
+        // <h2>
         if (!value.endsWith(">")) {
             value = createAttributes();
         }
+        // <br/> <img href="/image.jpg"/>
         if (!value.endsWith("/>")
-                        // FIXME
-                        && !element.getName().equals("input")
-                        && !element.getName().equals("hr")
-                        && !element.getName().equals("br")
-                        && !element.getName().equals("img")) {
+                        // <br><hr>
+                        && iterator.findElementEnd(element)) {
             createChildElements();
         }
         return element;
@@ -58,8 +57,7 @@ public class ElementBuilder {
     }
 
     private void createChildElements() {
-        String elementEnd = "</" + element.getName();
-        for (IElement child : IElementBuilder.buildElements(elementEnd, iterator)) {
+        for (IElement child : IElementBuilder.buildElements(element, iterator)) {
             element.addChild(child);
         }
     }
