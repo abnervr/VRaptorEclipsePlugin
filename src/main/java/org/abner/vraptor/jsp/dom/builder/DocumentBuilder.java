@@ -1,13 +1,19 @@
 package org.abner.vraptor.jsp.dom.builder;
 
+import java.io.InputStream;
+
 import org.abner.vraptor.jsp.dom.Document;
 import org.abner.vraptor.jsp.dom.IElement;
 
 public class DocumentBuilder {
 
-    private Document document = new Document();
+    public static Document build(InputStream is) {
+        return build(new JspIterator(is));
+    }
 
-    public Document build(JspIterator iterator) {
+
+    private static Document build(JspIterator iterator) {
+        Document document = new Document();
         try {
             for (IElement element : IElementBuilder.buildElements(iterator)) {
                 document.addElement(element);

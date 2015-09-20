@@ -88,10 +88,10 @@ public class VRaptorBuilder extends IncrementalProjectBuilder {
             marker.setAttribute(IMarker.MESSAGE, message);
             marker.setAttribute(IMarker.SEVERITY, severity);
             marker.setAttribute(IMarker.LINE_NUMBER, location.getLineNumber());
-            if (location.getEndColNumber() != -1) {
+            /*if (location.getEndColNumber() != -1) {
                 marker.setAttribute(IMarker.CHAR_START, location.getStartColNumber());
                 marker.setAttribute(IMarker.CHAR_END, location.getEndColNumber());
-            }
+            }*/
         } catch (CoreException e) {}
     }
 
@@ -123,8 +123,10 @@ public class VRaptorBuilder extends IncrementalProjectBuilder {
             VraptorJspErrorHandler reporter = new VraptorJspErrorHandler(file);
             try {
                 getParser().parse(file, reporter);
-            } catch (Exception e1) {
-                e1.printStackTrace();
+            } catch (Throwable t) {
+                System.out.printf("Error validating: %s\n%s\n",
+                                resource.getFullPath().toString(),
+                                t.getMessage());
             }
         }
     }

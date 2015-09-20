@@ -50,7 +50,7 @@ public class ExpressionBuilder {
         if (expressionEnd != -1) {
             String expression = textValue.getValue().substring(expressionStart, expressionEnd + 1);
 
-            build(expression, expressionStart, expressionEnd);
+            build(expression, textValue.getLineNumber(), expressionStart, expressionEnd);
             findExpressionStart(textValue, expressionEnd);
         } else {
             // Creates an expression that is not yet finished
@@ -65,7 +65,7 @@ public class ExpressionBuilder {
         if (expressionEnd != -1) {
             appendCurrentExpression(value.substring(0, expressionEnd + 1));
 
-            build(currentExpression, currentExpressionStart, textValue.getColNumber() + expressionEnd);
+            build(currentExpression, textValue.getLineNumber(), currentExpressionStart, textValue.getColNumber() + expressionEnd);
             currentExpression = null;
             findExpressionStart(textValue, expressionEnd);
         } else {
@@ -77,8 +77,8 @@ public class ExpressionBuilder {
         currentExpression += " " + value;
     }
 
-    private void build(String expressionValue, int expressionStart, int expressionEnd) {
-        Location location = new Location(-1, expressionStart, expressionEnd);
+    private void build(String expressionValue, int lineNumber, int expressionStart, int expressionEnd) {
+        Location location = new Location(lineNumber, expressionStart, expressionEnd);
 
         Expression expression = ExpressionFactory.create(expressionValue, location);
         expressions.add(expression);

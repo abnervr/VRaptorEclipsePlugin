@@ -12,6 +12,7 @@ public class JspIterator {
     private Scanner scanner;
     private int colNumber = 0;
     private LineIterator lineIterator;
+    private int lineNumber = 1;
 
     public JspIterator(InputStream is) {
         scanner = new Scanner(is);
@@ -40,6 +41,7 @@ public class JspIterator {
                 return true;
             } else {
                 colNumber += lineIterator.getColIndex() + LINE_FEED_SIZE;
+                lineNumber++;
                 lineIterator = null;
             }
         }
@@ -55,6 +57,14 @@ public class JspIterator {
     }
 
     public int getColNumber() {
-        return colNumber + lineIterator.getColIndex();
+        if (lineIterator != null) {
+            return colNumber + lineIterator.getColIndex();
+        } else {
+            return colNumber;
+        }
+    }
+
+    public int getLineNumber() {
+        return lineNumber;
     }
 }

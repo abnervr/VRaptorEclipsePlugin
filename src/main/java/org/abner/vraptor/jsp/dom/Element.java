@@ -35,4 +35,17 @@ public class Element implements IElement {
         return children;
     }
 
+    public Attribute getAttributeByName(String name) {
+        for (Attribute attribute : attributes) {
+            if (attribute.getName().equals(name)) {
+                return attribute;
+            }
+        }
+        return null;
+    }
+
+    public boolean hasAttribute(String name) {
+        return getAttributeByName(name) != null;
+    }
+
 }

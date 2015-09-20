@@ -26,11 +26,11 @@ public class IElementBuilder {
                 break;
             } else {
                 TextElement textElement = getLastTextElement(elements);
-                textElement.append(value, iterator.getColNumber());
+                textElement.append(value, iterator.getColNumber(), iterator.getLineNumber());
             }
         }
         if (elementEnd != null) {
-            throw new InvalidJspException("End of element: " + elementEnd + " not found");
+            throw new InvalidJspException("End of element: " + elementEnd + "[" + iterator.getColNumber() + "] not found");
         }
         return elements;
     }

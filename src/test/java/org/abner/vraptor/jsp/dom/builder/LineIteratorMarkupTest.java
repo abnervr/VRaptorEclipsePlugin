@@ -1,6 +1,5 @@
 package org.abner.vraptor.jsp.dom.builder;
 
-import org.abner.vraptor.jsp.dom.builder.LineIterator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -67,21 +66,6 @@ public class LineIteratorMarkupTest {
 
     @Test
     public void threeElements() {
-        LineIterator iterator = new LineIterator(" <just/><a/><test/>");
-        Assert.assertTrue(iterator.hasNext());
-        Assert.assertEquals("<just/>", iterator.next());
-        Assert.assertEquals(1, iterator.getColIndex());
-        Assert.assertTrue(iterator.hasNext());
-        Assert.assertEquals("<a/>", iterator.next());
-        Assert.assertEquals(8, iterator.getColIndex());
-        Assert.assertTrue(iterator.hasNext());
-        Assert.assertEquals("<test/>", iterator.next());
-        Assert.assertEquals(12, iterator.getColIndex());
-        Assert.assertFalse(iterator.hasNext());
-    }
-
-    @Test
-    public void threeElem2ents() {
         LineIterator iterator = new LineIterator("<c:if><a/></c:if>");
         Assert.assertTrue(iterator.hasNext());
         Assert.assertEquals("<c:if>", iterator.next());
@@ -94,4 +78,32 @@ public class LineIteratorMarkupTest {
         Assert.assertEquals(10, iterator.getColIndex());
         Assert.assertFalse(iterator.hasNext());
     }
+
+    @Test
+    public void elementWithChild() {
+        LineIterator iterator = new LineIterator("<c:if test=\"${endereco.tipoBacklight}\">xpto</c:if>");
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals("<c:if", iterator.next());
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals("test=\"${endereco.tipoBacklight}\">", iterator.next());
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals("xpto", iterator.next());
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals("</c:if>", iterator.next());
+        Assert.assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void elementWithChild2() {
+        LineIterator iterator = new LineIterator("<x:td>${entity.descricao}</x:td>");
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals("<x:td>", iterator.next());
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals("${entity.descricao}", iterator.next());
+        Assert.assertTrue(iterator.hasNext());
+        Assert.assertEquals("</x:td>", iterator.next());
+        Assert.assertFalse(iterator.hasNext());
+    }
+
+
 }

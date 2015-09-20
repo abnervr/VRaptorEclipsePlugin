@@ -9,7 +9,7 @@
       <builder
             hasNature="true">
          <run
-               class="main.java.org.abner.vraptor.builder.VRaptorBuilder">
+               class="org.abner.vraptor.builder.VRaptorBuilder">
          </run>
       </builder>
    </extension>
@@ -19,7 +19,7 @@
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
-               class="main.java.org.abner.vraptor.builder.VRaptor">
+               class="org.abner.vraptor.builder.VRaptor">
          </run>
       </runtime>
       <builder
@@ -34,7 +34,7 @@
       </category>
       <command
             name="Add/RemoveVRaptor Project Nature"
-            defaultHandler="main.java.org.abner.vraptor.builder.AddRemoveVRaptorHandler"
+            defaultHandler="org.abner.vraptor.builder.AddRemoveVRaptorHandler"
             categoryId="VRaptorEclipsePlugin.vraptor.category"
             id="VRaptorEclipsePlugin.addRemoveVRaptor">
       </command>

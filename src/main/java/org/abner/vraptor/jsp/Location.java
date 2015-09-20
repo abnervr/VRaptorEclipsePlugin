@@ -30,5 +30,39 @@ public class Location {
         return endColNumber;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + endColNumber;
+        result = prime * result + lineNumber;
+        result = prime * result + startColNumber;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Location other = (Location) obj;
+        if (endColNumber != other.endColNumber) {
+            return false;
+        }
+        if (lineNumber != other.lineNumber) {
+            return false;
+        }
+        if (startColNumber != other.startColNumber) {
+            return false;
+        }
+        return true;
+    }
+
 
 }

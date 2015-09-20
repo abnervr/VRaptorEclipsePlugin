@@ -19,7 +19,12 @@ public class ElementBuilder {
         if (!value.endsWith(">")) {
             value = createAttributes();
         }
-        if (!value.endsWith("/>")) {
+        if (!value.endsWith("/>")
+                        // FIXME
+                        && !element.getName().equals("input")
+                        && !element.getName().equals("hr")
+                        && !element.getName().equals("br")
+                        && !element.getName().equals("img")) {
             createChildElements();
         }
         return element;

@@ -19,8 +19,8 @@ public class TextElement implements IElement {
         return expressions;
     }
 
-    public void append(String value, int colNumber) {
-        values.add(new TextValue(value, colNumber));
+    public void append(String value, int colNumber, int lineNumber) {
+        values.add(new TextValue(value, colNumber, lineNumber));
     }
 
 }

@@ -6,9 +6,12 @@ public class TextValue {
 
     private int colNumber;
 
-    public TextValue(String value, int colNumber) {
+    private int lineNumber;
+
+    public TextValue(String value, int colNumber, int lineNumber) {
         this.value = value;
         this.colNumber = colNumber;
+        this.lineNumber = lineNumber;
     }
 
     public String getValue() {
@@ -17,6 +20,10 @@ public class TextValue {
 
     public int getColNumber() {
         return colNumber;
+    }
+
+    public int getLineNumber() {
+        return lineNumber;
     }
 
     @Override

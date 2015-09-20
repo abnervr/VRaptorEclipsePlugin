@@ -1,80 +1,87 @@
 package org.abner.vraptor.parser;
 
-import java.io.InputStream;
-import java.util.Scanner;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
+import java.util.List;
 
 import org.abner.vraptor.JspParseException;
 import org.abner.vraptor.builder.ErrorHandler;
+import org.abner.vraptor.jsp.ContextObject;
 import org.abner.vraptor.jsp.Jsp;
-import org.abner.vraptor.jsp.Location;
+import org.abner.vraptor.jsp.dom.Attribute;
+import org.abner.vraptor.jsp.dom.Element;
+import org.abner.vraptor.jsp.dom.IElement;
+import org.abner.vraptor.jsp.dom.TextElement;
+import org.abner.vraptor.jsp.dom.builder.DocumentBuilder;
 import org.abner.vraptor.jsp.expression.Expression;
-import org.abner.vraptor.jsp.expression.ExpressionFactory;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 
 public class JspParser {
 
     private Jsp jsp;
 
-    private int lineNumber = 1;
-
-    private int colNumber = 0;
+    private ErrorHandler handler;
 
     public void parse(IFile file, ErrorHandler errorHandler) throws CoreException {
         jsp = new Jsp(file);
+        handler = errorHandler;
         if (jsp.isInJavaProject()) {
-            parseExpressions(file.getContents());
-
-            for (Expression e : jsp.getExpressions()) {
-                try {
-                    e.validate(jsp);
-                } catch (JspParseException parseException) {
-                    errorHandler.error(parseException);
-                }
-            }
+            jsp.setDocument(DocumentBuilder.build(file.getContents()));
+            validate();
         }
     }
 
-    private void parseExpressions(InputStream is) {
-        try (Scanner scanner = new Scanner(is)) {
-            while (scanner.hasNext()) {
-                String line = scanner.nextLine();
-                try {
-                    parseExpression(line);
-                    lineNumber++;
-                    colNumber += line.length() + 1;
-                } catch (IndexOutOfBoundsException e) {
-                    e.printStackTrace();
-                }
-            }
+    private void validate() throws CoreException {
+        for (IElement e : jsp.getDocument().getElements()) {
+            validateIElement(e);
         }
     }
 
-    private void parseExpression(String line) {
-        int fromIndex = 0;
-        while (fromIndex < line.length()) {
-            int indexOf = line.indexOf("${", fromIndex);
-
-            if (indexOf != -1) {
-                fromIndex = indexOf + 1;
-                if (line.indexOf('}', fromIndex) != -1) {
-                    String expressionValue = line.substring(fromIndex + 1, line.indexOf('}', fromIndex));
-                    Location location = createLocation(line, fromIndex);
-
-                    Expression expression = ExpressionFactory.create(expressionValue, location);
-                    if (expression != null) {
-                        jsp.addExpression(expression);
-                    }
-                }
-            } else {
-                fromIndex = line.length();
-            }
+    private void validateIElement(IElement e) throws CoreException {
+        if (e instanceof Element) {
+            validateElement((Element) e);
+        } else if (e instanceof TextElement) {
+            validateExpressions(((TextElement) e).getExpressions());
         }
     }
 
-    private Location createLocation(String line, int fromIndex) {
-        return new Location(lineNumber, colNumber + fromIndex, colNumber + line.indexOf('}', fromIndex));
+    private void validateElement(Element element) throws CoreException {
+        validateAttributes(element);
+        ContextObject contextObject = createContextObject(element);
+        for (IElement child : element.getChildren()) {
+            validateIElement(child);
+        }
+        if (contextObject != null) {
+            jsp.removeContextObject(contextObject);
+        }
+    }
+
+    private ContextObject createContextObject(Element element) {
+        if (element.getName().equals("c:forEach") && element.hasAttribute("var") && element.hasAttribute("items")) {
+            String name = element.getAttributeByName("var").getValue();
+            List<Expression> expressions = element.getAttributeByName("items").getExpressions();
+            if (expressions.size() == 1) {
+                ContextObject contextObject = new ContextObject(name, expressions.get(0));
+                jsp.addContextObject(contextObject);
+                return contextObject;
+            }
+        }
+        return null;
+    }
+
+    private void validateAttributes(Element element) throws CoreException {
+        for (Attribute attribute : element.getAttributes()) {
+            validateExpressions(attribute.getExpressions());
+        }
+    }
+
+    private void validateExpressions(List<Expression> expressions) throws CoreException {
+        for (Expression e : expressions) {
+            try {
+                e.validate(jsp);
+            } catch (JspParseException parseException) {
+                handler.error(parseException);
+            }
+        }
     }
 
 }

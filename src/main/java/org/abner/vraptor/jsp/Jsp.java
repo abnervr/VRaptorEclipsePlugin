@@ -3,21 +3,20 @@ package org.abner.vraptor.jsp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.abner.vraptor.jsp.dom.Document;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
-import org.abner.vraptor.jsp.expression.Expression;
-
 public class Jsp {
-
-    private List<Expression> expressions = new ArrayList<>();
 
     private IFile file;
 
     private IJavaProject project;
+
+    private Document document;
 
     public Jsp(IFile file) throws CoreException {
         this.file = file;
@@ -34,16 +33,16 @@ public class Jsp {
         return project;
     }
 
-    public void addExpression(Expression expression) {
-        expressions.add(expression);
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public Document getDocument() {
+        return document;
     }
 
     public IFile getFile() {
         return file;
-    }
-
-    public List<Expression> getExpressions() {
-        return expressions;
     }
 
     public String getCurrentDirectory() {
@@ -75,4 +74,19 @@ public class Jsp {
             return name;
         }
     }
+
+    private List<ContextObject> contextObjects = new ArrayList<>();
+
+    public List<ContextObject> getContextObjects() {
+        return contextObjects;
+    }
+
+    public void addContextObject(ContextObject object) {
+        contextObjects.add(object);
+    }
+
+    public void removeContextObject(ContextObject object) {
+        contextObjects.remove(object);
+    }
+
 }
