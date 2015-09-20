@@ -51,16 +51,18 @@ public class Jsp {
     }
 
     public String getPath() {
-        IPath fullPath = file.getFullPath();
         String path = null;
-        int i = 3;
-        while (!fullPath.segment(fullPath.segmentCount() - i).equals("jsp")) {
-            if (path == null) {
-                path = fullPath.segment(fullPath.segmentCount() - i);
-            } else {
-                path = fullPath.segment(fullPath.segmentCount() - i) + "/" + path;
+        if (!getCurrentDirectory().equals("jsp")) {
+            IPath fullPath = file.getFullPath();
+            int i = 3;
+            while (i < fullPath.segmentCount() && !fullPath.segment(fullPath.segmentCount() - i).equals("jsp")) {
+                if (path == null) {
+                    path = fullPath.segment(fullPath.segmentCount() - i);
+                } else {
+                    path = fullPath.segment(fullPath.segmentCount() - i) + "/" + path;
+                }
+                i++;
             }
-            i++;
         }
         return path;
     }
