@@ -1,5 +1,6 @@
 package org.abner.vraptor.validator;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.abner.vraptor.ExpressionLanguageException;
@@ -54,9 +55,16 @@ public class JspValidator {
     }
 
     private ContextObject createContextObject(Element element) {
-        if (element.getName().equals("c:forEach") && element.hasAttribute("var") && element.hasAttribute("items")) {
+        if (element.hasAttribute("var")) {
             String name = element.getAttributeByName("var").getValue();
-            List<Expression> expressions = element.getAttributeByName("items").getExpressions();
+            List<Expression> expressions = Collections.emptyList();
+            if (element.hasAttribute("items")) {
+                // c:forEach
+                expressions = element.getAttributeByName("items").getExpressions();
+            } else if (element.hasAttribute("value")) {
+                // c:set f:fomartDate
+                expressions = element.getAttributeByName("value").getExpressions();
+            }
             if (expressions.size() == 1) {
                 ContextObject contextObject = new ContextObject(name, expressions.get(0));
                 jsp.addContextObject(contextObject);
