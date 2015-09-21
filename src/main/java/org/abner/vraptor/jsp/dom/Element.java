@@ -37,7 +37,7 @@ public class Element implements IElement {
 
     public Attribute getAttributeByName(String name) {
         for (Attribute attribute : attributes) {
-            if (attribute.getName().equals(name)) {
+            if (name.equals(attribute.getName())) {
                 return attribute;
             }
         }
