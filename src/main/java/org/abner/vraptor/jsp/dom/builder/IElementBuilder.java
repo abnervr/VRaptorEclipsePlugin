@@ -45,7 +45,7 @@ public class IElementBuilder {
     }
 
     static boolean isElementStart(String value) {
-        return value.matches("<[a-zA-Z][a-zA-Z0-9:]+>??");
+        return value.matches("<[a-zA-Z][a-zA-Z0-9:]*>??");
     }
 
 }
