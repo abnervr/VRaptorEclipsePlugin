@@ -23,4 +23,8 @@ public class TextElement implements IElement {
         values.add(new TextValue(value, colNumber, lineNumber));
     }
 
+    public List<TextValue> getValues() {
+        return values;
+    }
+
 }

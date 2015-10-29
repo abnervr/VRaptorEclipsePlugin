@@ -21,6 +21,9 @@ public class IElementBuilder {
             if (isElementStart(value)) {
                 elements.add(buildElement(iterator, value));
             } else {
+                if (value.startsWith("Azulix")) {
+                    System.out.println("Ahahahaha");
+                }
                 TextElement textElement = getLastTextElement(elements);
                 textElement.append(value, iterator.getColNumber(), iterator.getLineNumber());
             }

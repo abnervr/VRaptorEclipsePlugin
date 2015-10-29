@@ -11,6 +11,9 @@ import org.abner.vraptor.jsp.expression.ExpressionReference;
 import org.abner.vraptor.jsp.expression.ObjectReferenceExpression;
 import org.abner.vraptor.parser.ControllerParser;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaModelException;
 
 public class ObjectReferenceValidator implements ExpressionValidator<ObjectReferenceExpression> {
 
@@ -37,15 +40,34 @@ public class ObjectReferenceValidator implements ExpressionValidator<ObjectRefer
         }
     }
 
-    private void validateExpressions() throws ExpressionLanguageException {
+    private void validateExpressions() throws ExpressionLanguageException, JavaModelException {
         for (ExpressionReference e : expression.getReferences()) {
             String name = e.getSegment(0);
             Object object = findByName(name);
             if (object == null) {
                 throw new ExpressionLanguageException(name + " not included in " + controller.getName(),
                                 expression.getLocation());
-            } else {
-                // Validate object tree
+            } else if (object instanceof IncludedObject &&
+                            ((IncludedObject) object).getField() != null) {
+                validateObjectTree(e, (IncludedObject) object);
+            }
+        }
+
+    }
+
+    private void validateObjectTree(ExpressionReference e, IncludedObject object) throws JavaModelException, ExpressionLanguageException {
+        IType type = object.getFieldType();
+        int currentSegment = 1;
+        if (type != null) {
+            while (currentSegment < e.getSegmentCount()) {
+                String name = e.getSegment(currentSegment++);
+                IField field = type.getField(name);
+                if (field == null) {
+                    throw new ExpressionLanguageException(name + " not included in " +
+                                    controller.getName(), expression.getLocation());
+                } else {
+                    type = field.getDeclaringType();
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.abner.vraptor.ExpressionLanguageException;
 import org.abner.vraptor.jsp.Location;
+import org.abner.vraptor.parser.ControllerParser;
 import org.abner.vraptor.parser.JspParser;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -98,6 +99,7 @@ public class VRaptorBuilder extends IncrementalProjectBuilder {
     @Override
     protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
         if (kind == FULL_BUILD) {
+            ControllerParser.clear();
             fullBuild(monitor);
         } else {
             IResourceDelta delta = getDelta(getProject());
